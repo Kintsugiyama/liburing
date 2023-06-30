@@ -1,0 +1,32 @@
+#########################
+# On WSL or Linux
+#########################
+
+#### First checkout MUST be on Linux if you're working in an NTFS volume as otherwise line endings will cause problems
+
+git clone https://github.com/Kintsugiyama/liburing
+cd liburing
+# --force is necessary due to case mixing on man pages in the commit history
+git checkout --force tags/liburing-2.3 -b alta-liburing-2.3
+./configure
+make -j32
+
+# at this point in src you'll have the following artifacts necessary to use the library:
+liburing.a
+liburing.map
+liburing.so.2.3
+include/liburing.h
+include/liburing/barrier.h
+include/liburing/compat.h
+include/liburing/io_uring.h
+
+# liburing/compat.h is specific to your compilation environment and WILL NOT WORK with Epic's cross-compilation toolchain, so now..
+
+#########################
+# On Git Bash on Windows
+#########################
+
+cd liburing
+./configure
+
+# you should now be good to go for cross compilation!
